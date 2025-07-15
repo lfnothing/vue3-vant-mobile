@@ -2,6 +2,7 @@
   "menus": {
     "home": "Home",
     "profile": "My Center",
+    "mcp": "mcp",
     "darkMode": "🌗 Dark Mode",
     "mockGuide": "💿 Mock Guide",
     "language": "📚 Language",
@@ -34,7 +35,8 @@
   },
   "layouts": {
     "home": "HOME",
-    "profile": "PROFILE"
+    "profile": "PROFILE",
+    "mcp": "mcp"
   },
   "profile": {
     "login": "Login",

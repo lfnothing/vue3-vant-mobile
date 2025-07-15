@@ -8,11 +8,17 @@ const show = computed(() => route.name && routeWhiteList.includes(route.name))
 </script>
 
 <template>
-  <van-tabbar v-if="show" v-model="active" route placeholder>
+  <van-tabbar v-if="show" v-model="active" placeholder route>
     <van-tabbar-item replace to="/">
       {{ $t('layouts.home') }}
       <template #icon>
         <div class="i-carbon:home" />
+      </template>
+    </van-tabbar-item>
+    <van-tabbar-item replace to="/mcp">
+      {{ $t('layouts.mcp') }}
+      <template #icon>
+        <div class="i-carbon:cloud" />
       </template>
     </van-tabbar-item>
     <van-tabbar-item replace to="/profile">

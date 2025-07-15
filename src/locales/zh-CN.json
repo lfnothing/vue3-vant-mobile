@@ -2,6 +2,14 @@
   "menus": {
     "home": "主页",
     "profile": "个人中心",
+    "mcp": "mcp",
+    "mcpCall": "🔧 执行mcp工具",
+    "mcpCreate": "🔧 创建mcp工具",
+    "mcpConfig": "👏 配置mcp服务器",
+    "mcpVariable": "🔧 mcp变量定义",
+    "mcpOperation": "🤔️ mcp操作管理",
+    "mcpOperationList": "🤔️ mcp操作列表",
+    "mcpOperationOrganize": "🔧 mcp操作编排",
     "darkMode": "🌗 暗黑模式",
     "mockGuide": "💿 Mock 指南",
     "language": "📚 语言",
@@ -34,7 +42,8 @@
   },
   "layouts": {
     "home": "首页",
-    "profile": "我的"
+    "profile": "我的",
+    "mcp": "mcp"
   },
   "profile": {
     "login": "登录",

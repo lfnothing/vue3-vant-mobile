@@ -119,6 +119,9 @@ export function createVitePlugins(mode: string) {
           },
         ],
       },
+      workbox: {
+        maximumFileSizeToCacheInBytes: 3000000, // 3 MiB
+      },
     }),
   ]
 }
