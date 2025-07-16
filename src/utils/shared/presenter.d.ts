@@ -1,8 +1,8 @@
-// todo add default
 export interface property {
   name: string
   type: string
   value: any
+  required: boolean
   description: string
 }
 

@@ -125,7 +125,8 @@ export async function listTools(config: McpConfig): Promise<McpTool[]> {
           properties.push({
             name: key,
             type: (tool.inputSchema.properties[key] as { type: string }).type,
-            value: undefined,
+            value: (tool.inputSchema.properties[key] as { default: any }).default,
+            required: tool.inputSchema.required.includes(key),
             description: (tool.inputSchema.properties[key] as { description: string }).description,
           })
         }
