@@ -278,7 +278,8 @@ async function init() {
         properties.push({
           name: property.name,
           type: property.type,
-          value: undefined,
+          value: property.value,
+          required: property.required,
           description: property.description,
         })
       }
@@ -336,6 +337,8 @@ onBeforeMount(() => {
         <van-field
           :key="index"
           v-model="item.value"
+          :required="item.required"
+          :value="item.value"
           clearable
           :name="item.name"
           :label="item.name"
