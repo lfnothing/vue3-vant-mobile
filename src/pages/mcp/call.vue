@@ -146,6 +146,9 @@ async function handleExec() {
       else if (param.type === 'number') {
         params[param.name] = Number(param.value)
       }
+      else if (param.type === 'boolean') {
+        params[param.name] = param.value === 'true'
+      }
       else {
         params[param.name] = param.value
       }
@@ -334,6 +337,7 @@ onBeforeMount(() => {
   <DemoBlock v-if="toolsDescription[baseState.id]" card title="输入 tool 参数">
     <van-cell-group inset>
       <div v-for="(item, index) in toolsParams[baseState.id]" :key="index">
+        <!-- todo 解决 Invalid prop: type check failed for prop "modelValue". Expected Number | String, got Boolean with value false. -->
         <van-field
           :key="index"
           v-model="item.value"
