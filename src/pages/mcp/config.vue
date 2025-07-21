@@ -1,19 +1,22 @@
 <script setup lang="ts">
 import { showNotify } from 'vant'
-import useMcpBakStore from '@/stores/modules/mcp'
+import _ from 'lodash'
+import useMcpStore from '@/stores/modules/mcp'
+import useMcpBakStore from '@/stores/modules/mcpBak'
 import type { McpBak } from '@/utils/shared/presenter'
 
 interface StateItem {
-  config: McpConfig
+  backup: McpBak
   show: boolean
   title: string
 }
 
 const baseState = ref<StateItem>({
-  config: {
-    id: 0,
-    url: '',
+  backup: {
+    id: '',
     name: '',
+    configs: [],
+    timestamp: 0,
   },
   show: false,
   title: '',
@@ -22,7 +25,7 @@ const baseState = ref<StateItem>({
 const backups = ref<McpBak[]>([])
 
 function init() {
-  backups.value = useMcpBakStore().mcpBak
+  backups.value = useMcpBakStore().mcpBaks
 }
 
 onBeforeMount(() => {
@@ -38,9 +41,10 @@ function handleShow(item: McpConfig) {
 }
 
 function handleAdd() {
-  baseState.value.config.id = 0
-  baseState.value.config.url = ''
-  baseState.value.config.name = ''
+  baseState.value.backup.id = ''
+  baseState.value.backup.name = ''
+  baseState.value.backup.configs = []
+  baseState.value.backup.timestamp = 0
   baseState.value.show = true
   baseState.value.title = '添加配置'
 }
@@ -52,16 +56,25 @@ function handleDelete(config: McpConfig) {
 }
 
 function handleSave() {
-  if (baseState.value.title === '编辑配置') {
-    useMcpStore().editCf(baseState.value.config)
-    init()
-    showNotify({ type: 'success', message: '操作成功' })
-  }
-  else if (baseState.value.title === '添加配置') {
-    useMcpStore().pushCf(baseState.value.config)
-    init()
-    showNotify({ type: 'success', message: '操作成功' })
-  }
+  // if (baseState.value.title === '编辑配置') {
+  //   useMcpStore().editCf(baseState.value.config)
+  //   init()
+  //   showNotify({ type: 'success', message: '操作成功' })
+  // }
+  // else if (baseState.value.title === '添加配置') {
+  //   useMcpStore().pushCf(baseState.value.config)
+  //   init()
+  //   showNotify({ type: 'success', message: '操作成功' })
+  // }
+
+  // 自动生成信息
+  baseState.value.backup.id = _.uniqueId()
+  baseState.value.backup.timestamp = Date.now()
+
+  // 自动备份其他信息
+  baseState.value.backup.configs = _.cloneDeep(useMcpStore().mcpConfigs)
+
+  useMcpBakStore().pushBak(baseState.value.backup)
 }
 </script>
 
@@ -102,12 +115,8 @@ function handleSave() {
     <DemoBlock card :title="baseState.title">
       <van-cell-group inset>
         <van-field
-          v-model="baseState.config.name"
+          v-model="baseState.backup.name"
           label="名称"
-        />
-        <van-field
-          v-model="baseState.config.url"
-          label="地址"
         />
       </van-cell-group>
       <div style="margin: 16px;">
