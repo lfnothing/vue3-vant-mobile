@@ -85,10 +85,15 @@ const useMcpStore = defineStore('mcp', () => {
     })
   }
 
-  // 还原
-  // const recoverCf = (configs: McpConfig[]) => {
-  //   mcpConfigs.value = configs
-  // }
+  // 清空
+  const recoverCf = (configs: McpConfig[]) => {
+    mcpConfigs.value = configs
+  }
+
+  // 清空
+  const cleanCf = () => {
+    mcpConfigs.value = []
+  }
 
   const pushVar = (v: McpVariable) => {
     mcpVariables.value.push({
@@ -116,6 +121,14 @@ const useMcpStore = defineStore('mcp', () => {
         item.id = index + 1
       }
     })
+  }
+
+  const recoverVar = (variables: McpVariable[]) => {
+    mcpVariables.value = variables
+  }
+
+  const cleanVar = () => {
+
   }
 
   const pushOp = (record: McpToolOperation) => {
@@ -151,6 +164,20 @@ const useMcpStore = defineStore('mcp', () => {
     return wf ? toRaw(wf[0]) : null
   }
 
+  // 清空配置
+  const clean = () => {
+    cleanCf()
+    cleanVar()
+    // ...
+  }
+
+  // 还原配置
+  const recover = (configs: McpConfig[], variables: McpVariable[]) => {
+    recoverCf(configs)
+    recoverVar(variables)
+    // ...
+  }
+
   return {
     mcpConfigs,
     mcpVariables,
@@ -160,7 +187,6 @@ const useMcpStore = defineStore('mcp', () => {
     pushCf,
     editCf,
     deleteCf,
-    // recoverCf,
     pushVar,
     editVar,
     deleteVar,
@@ -173,6 +199,8 @@ const useMcpStore = defineStore('mcp', () => {
     pushWf,
     editWf,
     getWf,
+    clean,
+    recover,
   }
 }, {
   persist: true,
