@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { showNotify } from 'vant'
-import useMcpBakStore from '@/stores/modules/mcp'
-import type { McpBak } from '@/utils/shared/presenter'
+import useMcpStore from '@/stores/modules/mcp'
+import type { McpConfig } from '@/utils/shared/presenter'
 
 interface StateItem {
   config: McpConfig
@@ -19,10 +19,10 @@ const baseState = ref<StateItem>({
   title: '',
 })
 
-const backups = ref<McpBak[]>([])
+const configs = ref<McpConfig[]>([])
 
 function init() {
-  backups.value = useMcpBakStore().mcpBak
+  configs.value = useMcpStore().mcpConfigs
 }
 
 onBeforeMount(() => {
@@ -66,9 +66,9 @@ function handleSave() {
 </script>
 
 <template>
-  <DemoBlock card title="配置列表">
+  <DemoBlock card title="配置操作">
     <van-cell-group inset>
-      <van-swipe-cell v-for="(item, index) in backups" :key="index">
+      <van-swipe-cell v-for="(item, index) in configs" :key="index">
         <van-field
           v-model="item.name"
           is-link
@@ -81,13 +81,8 @@ function handleSave() {
       </van-swipe-cell>
     </van-cell-group>
     <div style="margin: 16px;">
-      <van-button round block type="danger" native-type="submit" @click="handleAdd">
-        清空配置
-      </van-button>
-    </div>
-    <div style="margin: 16px;">
       <van-button round block type="primary" native-type="submit" @click="handleAdd">
-        备份配置
+        添加
       </van-button>
     </div>
   </DemoBlock>
@@ -121,10 +116,10 @@ function handleSave() {
 
 <route lang="json5">
 {
-    name: 'mcp/config',
+    name: 'mcp/server',
     meta: {
-        title: '👏 mcp配置管理',
-        i18n: 'menus.mcpConfig'
+        title: '👏 mcp服务器配置',
+        i18n: 'menus.mcpServer'
     }
 }
 </route>

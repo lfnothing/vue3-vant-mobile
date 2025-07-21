@@ -32,6 +32,7 @@ declare module 'vue-router/auto-routes' {
     'mcp/operation': RouteRecordInfo<'mcp/operation', '/mcp/operation', Record<never, never>, Record<never, never>>,
     'mcp/operation/list': RouteRecordInfo<'mcp/operation/list', '/mcp/operation/list', Record<never, never>, Record<never, never>>,
     'mcp/operation/organize': RouteRecordInfo<'mcp/operation/organize', '/mcp/operation/organize', Record<never, never>, Record<never, never>>,
+    'mcp/server': RouteRecordInfo<'mcp/server', '/mcp/server', Record<never, never>, Record<never, never>>,
     'mcp/variable': RouteRecordInfo<'mcp/variable', '/mcp/variable', Record<never, never>, Record<never, never>>,
     'mock': RouteRecordInfo<'mock', '/mock', Record<never, never>, Record<never, never>>,
     'profile': RouteRecordInfo<'profile', '/profile', Record<never, never>, Record<never, never>>,

@@ -77,3 +77,18 @@ export interface MCPToolCall {
     description: string
   }
 }
+
+export interface McpBak {
+  // 备份名
+  name: string
+
+  // 备份的数据
+  configs: McpConfig[]
+  variables: McpVariable[]
+  tools: McpTool[]
+  toolOperations: McpToolOperation[]
+  workflows: Workflow[]
+
+  // 备份时间
+  timestamp: int64
+}

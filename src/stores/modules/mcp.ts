@@ -36,6 +36,8 @@ const useMcpStore = defineStore('mcp', () => {
         type: op ? op[0].tool.inputSchema.properties[param.paramId].type : 'unknown',
         value: undefined,
         description: op ? op[0].tool.inputSchema.properties[param.paramId].description : 'unknown',
+        // todo 修正 required 赋值
+        required: false,
       })
     }
 
@@ -82,6 +84,11 @@ const useMcpStore = defineStore('mcp', () => {
       }
     })
   }
+
+  // 还原
+  // const recoverCf = (configs: McpConfig[]) => {
+  //   mcpConfigs.value = configs
+  // }
 
   const pushVar = (v: McpVariable) => {
     mcpVariables.value.push({
@@ -153,6 +160,7 @@ const useMcpStore = defineStore('mcp', () => {
     pushCf,
     editCf,
     deleteCf,
+    // recoverCf,
     pushVar,
     editVar,
     deleteVar,
