@@ -79,16 +79,19 @@ export interface MCPToolCall {
 }
 
 export interface McpBak {
+  // 备份ID
+  id: string
+
   // 备份名
   name: string
 
   // 备份的数据
   configs: McpConfig[]
   variables: McpVariable[]
-  tools: McpTool[]
   toolOperations: McpToolOperation[]
+  toolOperationDefines: McpToolOperation[]
   workflows: Workflow[]
 
   // 备份时间
-  timestamp: int64
+  timestamp: number
 }

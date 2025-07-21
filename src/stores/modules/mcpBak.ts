@@ -1,44 +1,32 @@
 import { defineStore } from 'pinia'
-import type { McpBak } from '@/utils/shared/presenter'
+import type { McpBak, McpConfig, McpToolOperation, McpVariable, Workflow } from '@/utils/shared/presenter'
 
 const useMcpBakStore = defineStore('mcpBak', () => {
-  const mcpBak = ref<McpBak[]>([])
+  const mcpBaks = ref<McpBak[]>([])
 
-  // 备份 config
-  // const backConfig = (configs: McpConfig[]) => {
+  // 添加配置
+  const pushBak = (name: string, configs: McpConfig[], variables: McpVariable[], toolOperations: McpToolOperation[], toolOperationDefines: McpToolOperation[], workflows: Workflow[]) => {
+    mcpBaks.value.push({
+      id: '',
+      name,
+      configs,
+      variables,
+      toolOperations,
+      toolOperationDefines,
+      workflows,
+      timestamp: 0,
+    })
+  }
 
-  // }
-
-  // 备份 variables
-  // const backVariables = (variables: McpVariable[]) => {
-
-  // }
-
-  //
-
-  // 设置备份名称
-  // const setBackName = (name: string) => {
-
-  // }
-
-  // 设置备份时间
-  // const setBackTimestamp = (timestamp: int) => {
-
-  // }
-
-  // 设置备份
-  // const backUp = (name: string, configs: McpConfig[], variables: McpVariable[], tools: McpTool[], toolOperations: McpToolOperation[], workflows: Workflow[]) => {
-  //   setBackName('1')
-  //   backConfig(configs)
-  //   backVariables(variables)
-
-  //   // ...
-  //   setBackTimestamp(11)
-  // }
+  // 删除配置
+  const delBak = (id: string) => {
+    mcpBaks.value = mcpBaks.value.filter(item => item.id !== id)
+  }
 
   return {
-    mcpBak,
-    // backUp,
+    mcpBaks,
+    pushBak,
+    delBak,
   }
 }, {
   persist: true,
