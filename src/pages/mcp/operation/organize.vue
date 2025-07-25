@@ -142,6 +142,12 @@ async function handleExec() {
             params[property.name] = property.value
           }
         }
+        else if (property.type === 'number') {
+          params[property.name] = Number(property.value)
+        }
+        else if (property.type === 'boolean') {
+          params[property.name] = property.value === 'true'
+        }
         else {
           params[property.name] = property.value
         }
