@@ -41,6 +41,7 @@ const useMcpStore = defineStore('mcp', () => {
       })
     }
 
+    // 检查工具列表中是否存在相同ID配置‌不存在创建完整元数据新配置项
     if (tools.value.filter(item => item.id === workflow.id).length === 0) {
       tools.value.push ({
         id: workflow.id,
@@ -53,6 +54,7 @@ const useMcpStore = defineStore('mcp', () => {
         },
       })
     }
+    // 如果存在相同ID配置，更新其名称、描述和输入模式
     else {
       tools.value.forEach((item) => {
         if (item.id === workflow.id) {
@@ -77,22 +79,14 @@ const useMcpStore = defineStore('mcp', () => {
   }
 
   const deleteCf = (config: McpConfig) => {
+    // 通过filter移除指定ID的   ---配置项
     mcpConfigs.value = mcpConfigs.value.filter(item => item.id !== config.id)
+    //  重构剩余项的ID序列‌
     mcpConfigs.value.forEach((item, index) => {
       if (item.id !== index + 1) {
         item.id = index + 1
       }
     })
-  }
-
-  // 清空
-  const recoverCf = (configs: McpConfig[]) => {
-    mcpConfigs.value = configs
-  }
-
-  // 清空
-  const cleanCf = () => {
-    mcpConfigs.value = []
   }
 
   const pushVar = (v: McpVariable) => {
@@ -104,6 +98,7 @@ const useMcpStore = defineStore('mcp', () => {
     })
   }
 
+  // 编辑 ---变量
   const editVar = (v: McpVariable) => {
     mcpVariables.value.forEach((item) => {
       if (item.id === v.id) {
@@ -114,6 +109,7 @@ const useMcpStore = defineStore('mcp', () => {
     })
   }
 
+  // 删除 ---变量
   const deleteVar = (v: McpVariable) => {
     mcpVariables.value = mcpVariables.value.filter(item => item.id !== v.id)
     mcpVariables.value.forEach((item, index) => {
@@ -123,12 +119,66 @@ const useMcpStore = defineStore('mcp', () => {
     })
   }
 
+  // 清空
+  const cleanCf = () => {
+    mcpConfigs.value = []
+  }
+
+  const cleanVar = () => {
+    mcpVariables.value = []
+  }
+
+  const cleanOp = () => {
+    mcpToolOperations.value = []
+    mcpToolOperationDefines.value = []
+  }
+
+  const cleanWf = () => {
+    workflows.value = []
+    // tools.value = []
+  }
+  const cleantool = () => {
+    tools.value = []
+  }
+
+  const clean = () => {
+    cleanCf()
+    cleanVar()
+    cleanOp()
+    cleanWf()
+    cleantool()
+  }
+
+  // 还原
+  const recoverCf = (configs: McpConfig[]) => {
+    mcpConfigs.value = configs
+  }
+
   const recoverVar = (variables: McpVariable[]) => {
     mcpVariables.value = variables
   }
 
-  const cleanVar = () => {
+  const recoverOp = (operations: McpToolOperation[], operationDefines: McpToolOperation[]) => {
+    mcpToolOperations.value = operations
+    mcpToolOperationDefines.value = operationDefines
+  }
 
+  const recoverWf = (wfs: Workflow[]) => {
+    workflows.value = wfs
+  }
+  // const recoverTool = (ts: McpTool[]) => {
+  //   tools.value = ts
+  // }
+
+  // 还原配置
+  const recover = (configs: McpConfig[], variables: McpVariable[], operations: McpToolOperation[], operationDefines: McpToolOperation[], wfs: Workflow[],
+    // ,ts: McpTool[]
+  ) => {
+    recoverCf(configs)
+    recoverVar(variables)
+    recoverOp(operations, operationDefines)
+    recoverWf(wfs)
+    // recoverTool(ts)
   }
 
   const pushOp = (record: McpToolOperation) => {
@@ -162,20 +212,6 @@ const useMcpStore = defineStore('mcp', () => {
   const getWf = (id: string) => {
     const wf = workflows.value.filter(item => item.id === id)
     return wf ? toRaw(wf[0]) : null
-  }
-
-  // 清空配置
-  const clean = () => {
-    cleanCf()
-    cleanVar()
-    // ...
-  }
-
-  // 还原配置
-  const recover = (configs: McpConfig[], variables: McpVariable[]) => {
-    recoverCf(configs)
-    recoverVar(variables)
-    // ...
   }
 
   return {

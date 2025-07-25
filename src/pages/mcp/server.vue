@@ -3,6 +3,7 @@ import { showNotify } from 'vant'
 import useMcpStore from '@/stores/modules/mcp'
 import type { McpConfig } from '@/utils/shared/presenter'
 
+// StateItem是一个接口，定义了组件的主要状态结构
 interface StateItem {
   config: McpConfig
   show: boolean
@@ -19,8 +20,10 @@ const baseState = ref<StateItem>({
   title: '',
 })
 
+// 存储当前配置项
 const configs = ref<McpConfig[]>([])
 
+// 初始化
 function init() {
   configs.value = useMcpStore().mcpConfigs
 }

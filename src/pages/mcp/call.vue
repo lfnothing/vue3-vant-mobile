@@ -209,7 +209,7 @@ function handleConfirm() {
 
   const tool = baseState.value.tools[baseState.value.id]
   const operation: McpToolOperation = {
-    id: _.uniqueId(),
+    id: crypto.randomUUID(),
     tool: {
       id: tool.id,
       name: tool.name,

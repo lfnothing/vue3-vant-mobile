@@ -49,7 +49,7 @@ function handlePush({ selectedValues }) {
   const selected = operations.value.filter(item => item.id === selectedValues[0])
   if (selected.length > 0) {
     const value = _.cloneDeep(selected[0])
-    value.id = _.uniqueId()
+    value.id = crypto.randomUUID()
     useMcpStore().pushOpDf(value)
   }
   baseState.value.showPicker = false
@@ -211,7 +211,7 @@ function handleConfirm() {
   // }
 
   const wf: Workflow = {
-    id: _.uniqueId(),
+    id: crypto.randomUUID(),
     name: baseState.value.saveDescription,
     paramRedefines: [],
     toolOperations: _.cloneDeep(useMcpStore().mcpToolOperationDefines),
