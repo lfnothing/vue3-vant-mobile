@@ -88,6 +88,7 @@ export interface McpBak {
   // 备份的数据
   configs: McpConfig[]
   variables: McpVariable[]
+  tools: McpTool[]
   toolOperations: McpToolOperation[]
   toolOperationDefines: McpToolOperation[]
   workflows: Workflow[]

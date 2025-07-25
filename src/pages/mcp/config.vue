@@ -23,6 +23,7 @@ const baseState = ref<StateItem>({
     timestamp: 0,
     configs: [],
     variables: [],
+    tools: [],
     toolOperations: [],
     toolOperationDefines: [],
     workflows: [],
@@ -51,6 +52,7 @@ function handleShow(item: McpBak) {
   baseState.value.backup.name = item.name
   baseState.value.backup.configs = _.cloneDeep(item.configs)
   baseState.value.backup.variables = _.cloneDeep(item.variables)
+  baseState.value.backup.tools = _.cloneDeep(item.tools)
   baseState.value.backup.toolOperations = _.cloneDeep(item.toolOperations)
   baseState.value.backup.toolOperationDefines = _.cloneDeep(item.toolOperationDefines)
   baseState.value.backup.workflows = _.cloneDeep(item.workflows)
@@ -64,6 +66,7 @@ function handleAdd() {
   baseState.value.backup.configs = []
   baseState.value.backup.timestamp = Date.now()
   baseState.value.backup.variables = []
+  baseState.value.backup.tools = []
   baseState.value.backup.toolOperations = []
   baseState.value.backup.toolOperationDefines = []
   baseState.value.backup.workflows = []
@@ -89,10 +92,8 @@ function handleClean() {
 }
 
 function handleDelete(backup: McpBak) {
-  console.log(toRaw(backups.value))
   useMcpBakStore().delBak(backup.id)
   init()
-  console.log(toRaw(backups.value))
   showNotify({ type: 'success', message: '删除成功' })
 }
 
@@ -100,6 +101,7 @@ function handleRecover() {
   useMcpStore().recover(
     baseState.value.backup.configs,
     baseState.value.backup.variables,
+    baseState.value.backup.tools,
     baseState.value.backup.toolOperations,
     baseState.value.backup.toolOperationDefines,
     baseState.value.backup.workflows,
@@ -116,6 +118,7 @@ function handleSave() {
   // 自动备份其他信息
   baseState.value.backup.configs = _.cloneDeep(useMcpStore().mcpConfigs)
   baseState.value.backup.variables = _.cloneDeep(useMcpStore().mcpVariables)
+  baseState.value.backup.tools = _.cloneDeep(useMcpStore().tools)
   baseState.value.backup.toolOperations = _.cloneDeep(useMcpStore().mcpToolOperations)
   baseState.value.backup.toolOperationDefines = _.cloneDeep(useMcpStore().mcpToolOperationDefines)
   baseState.value.backup.workflows = _.cloneDeep(useMcpStore().workflows)

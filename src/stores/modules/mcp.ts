@@ -135,8 +135,8 @@ const useMcpStore = defineStore('mcp', () => {
 
   const cleanWf = () => {
     workflows.value = []
-    // tools.value = []
   }
+
   const cleantool = () => {
     tools.value = []
   }
@@ -166,19 +166,19 @@ const useMcpStore = defineStore('mcp', () => {
   const recoverWf = (wfs: Workflow[]) => {
     workflows.value = wfs
   }
-  // const recoverTool = (ts: McpTool[]) => {
-  //   tools.value = ts
-  // }
+
+  const recoverTool = (ts: McpTool[]) => {
+    tools.value = ts
+  }
 
   // 还原配置
-  const recover = (configs: McpConfig[], variables: McpVariable[], operations: McpToolOperation[], operationDefines: McpToolOperation[], wfs: Workflow[],
-    // ,ts: McpTool[]
+  const recover = (configs: McpConfig[], variables: McpVariable[], ts: McpTool[], operations: McpToolOperation[], operationDefines: McpToolOperation[], wfs: Workflow[],
   ) => {
     recoverCf(configs)
     recoverVar(variables)
+    recoverTool(ts)
     recoverOp(operations, operationDefines)
     recoverWf(wfs)
-    // recoverTool(ts)
   }
 
   const pushOp = (record: McpToolOperation) => {
