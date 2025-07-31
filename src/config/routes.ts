@@ -3,4 +3,5 @@ export const routeWhiteList: readonly string[] = [
   'home', // 首页
   'profile', // 个人中心
   'mcp', // mcp
+  'shop', // 商铺选址
 ]

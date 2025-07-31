@@ -36,7 +36,8 @@
   "layouts": {
     "home": "HOME",
     "profile": "PROFILE",
-    "mcp": "mcp"
+    "mcp": "mcp",
+    "shop": "shop"
   },
   "profile": {
     "login": "Login",

@@ -39,6 +39,7 @@ declare module 'vue-router/auto-routes' {
     'register': RouteRecordInfo<'register', '/register', Record<never, never>, Record<never, never>>,
     'ScrollCache': RouteRecordInfo<'ScrollCache', '/scroll-cache', Record<never, never>, Record<never, never>>,
     'settings': RouteRecordInfo<'settings', '/settings', Record<never, never>, Record<never, never>>,
+    'shop': RouteRecordInfo<'shop', '/shop', Record<never, never>, Record<never, never>>,
     'unocss': RouteRecordInfo<'unocss', '/unocss', Record<never, never>, Record<never, never>>,
   }
 }

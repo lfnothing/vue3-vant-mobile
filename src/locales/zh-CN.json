@@ -3,6 +3,7 @@
     "home": "主页",
     "profile": "个人中心",
     "mcp": "mcp",
+    "shop": "商铺选址",
     "mcpCall": "🔧 执行mcp工具",
     "mcpCreate": "🔧 创建mcp工具",
     "mcpServer": "👏 mcp服务器配置",
@@ -44,7 +45,8 @@
   "layouts": {
     "home": "首页",
     "profile": "我的",
-    "mcp": "mcp"
+    "mcp": "mcp",
+    "shop": "商铺选址"
   },
   "profile": {
     "login": "登录",
