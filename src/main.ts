@@ -22,6 +22,15 @@ import 'vant/es/dialog/style'
 import 'vant/es/notify/style'
 import 'vant/es/image-preview/style'
 
+// 引入高德第三方组件库
+import '@vuemap/vue-amap/dist/style.css'
+import VueAMap, { initAMapApiLoader } from '@vuemap/vue-amap'
+
+initAMapApiLoader({
+  key: import.meta.env.VITE_APP_AMAP_KEY,
+  securityJsCode: import.meta.env.VITE_APP_AMAP_SECURITYJSCODE,
+})
+
 const app = createApp(App)
 const head = createHead()
 
@@ -29,5 +38,6 @@ app.use(head)
 app.use(router)
 app.use(pinia)
 app.use(i18n)
+app.use(VueAMap)
 
 app.mount('#app')

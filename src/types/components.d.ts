@@ -8,6 +8,8 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    1: typeof import('./../components/Maps/1.vue')['default']
+    Amap: typeof import('./../components/Maps/amap.vue')['default']
     Chart: typeof import('./../components/Chart/index.vue')['default']
     DemoBlock: typeof import('./../components/DemoBlock.vue')['default']
     GdMap: typeof import('./../components/Maps/GdMap.vue')['default']

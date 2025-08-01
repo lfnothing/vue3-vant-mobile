@@ -21,7 +21,6 @@
     "prepare": "simple-git-hooks"
   },
   "dependencies": {
-    "@amap/amap-jsapi-loader": "^1.0.1",
     "@capacitor/cli": "^7.2.0",
     "@capacitor/core": "^7.2.0",
     "@capacitor/ios": "^7.2.0",
@@ -30,6 +29,7 @@
     "@unhead/vue": "2.0.12",
     "@vant/touch-emulator": "^1.4.0",
     "@vant/use": "^1.6.0",
+    "@vuemap/vue-amap": "^2.1.16",
     "@vueuse/core": "^13.5.0",
     "axios": "^1.10.0",
     "dayjs": "^1.11.13",
