@@ -10,8 +10,8 @@ interface StateItem {
   zoom: number
   center: [number, number]
   position: [number, number]
-  markerVisible: true
-  markDraggable: false
+  markerVisible: boolean
+  markDraggable: boolean
 }
 
 const baseState = ref<StateItem>({
@@ -19,7 +19,7 @@ const baseState = ref<StateItem>({
   center: [116.397428, 39.90923],
   position: [116.397428, 39.90923],
   markerVisible: true,
-  markDraggable: false,
+  markDraggable: true,
 })
 
 // 这样就可以获取到ElAmap的组件实例类型
