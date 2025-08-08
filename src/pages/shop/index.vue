@@ -168,19 +168,19 @@ onBeforeMount(() => {
         写字楼
       </van-checkbox>
       <van-checkbox :name="1">
-        住宅区
-      </van-checkbox>
-      <van-checkbox :name="2">
         学校
       </van-checkbox>
-      <van-checkbox :name="3">
-        公园
-      </van-checkbox>
-      <van-checkbox :name="4">
+      <van-checkbox :name="2">
         医院
       </van-checkbox>
-      <van-checkbox :name="5">
+      <van-checkbox :name="3">
         购物中心
+      </van-checkbox>
+      <van-checkbox :name="4">
+        住宅区
+      </van-checkbox>
+      <van-checkbox :name="5">
+        公园
       </van-checkbox>
       <van-checkbox :name="6">
         停车场
