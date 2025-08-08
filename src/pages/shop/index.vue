@@ -43,6 +43,7 @@ function handleDragend(eve: any) {
   baseState.value.center = eve.lnglat.toArray()
 }
 function handleMapClick() {
+  baseState.value.isloading = true
   queryValuation(baseState.value.position.toLocaleString()).then((res) => {
     baseState.value.ret = res.ret.data
     console.log(res)
