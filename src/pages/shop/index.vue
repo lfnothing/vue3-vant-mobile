@@ -14,7 +14,6 @@ interface StateItem {
   position: [number, number]
   markerVisible: boolean
   markDraggable: boolean
-  // formattedAddress: string
   ret: any
   isloading: boolean
 }
@@ -25,7 +24,6 @@ const baseState = ref<StateItem>({
   position: [116.397428, 39.90923],
   markerVisible: true,
   markDraggable: true,
-  // formattedAddress: '',
   ret: null,
   isloading: false,
 })
@@ -44,7 +42,7 @@ function handleDragend(eve: any) {
 }
 function handleMapClick() {
   baseState.value.isloading = true
-  queryValuation(baseState.value.position.toLocaleString()).then((res) => {
+  queryValuation(baseState.value.position.join(',')).then((res) => {
     baseState.value.ret = res.ret.data
     console.log(res)
     showInfoWindow.value = true
@@ -66,7 +64,6 @@ onBeforeMount(() => {
       getCurrentPosition().then((currentPosition) => {
         baseState.value.center = currentPosition.position.toArray()
         baseState.value.position = currentPosition.position.toArray()
-        // baseState.value.formattedAddress = currentPosition.formattedAddress
         console.log('currentPosition: ', currentPosition)
       })
       getCityInfo().then((cityResult) => {
@@ -156,7 +153,7 @@ onBeforeMount(() => {
     <van-field v-model="baseState.ret.trafficDistance" readonly />
 
     <van-row>
-      <DemoBlock>最近商圈距离（千米）</DemoBlock>
+      <DemoBlock>最近商圈距离（米）</DemoBlock>
     </van-row>
     <van-field v-model="baseState.ret.commercialZoneDistance" readonly />
 
