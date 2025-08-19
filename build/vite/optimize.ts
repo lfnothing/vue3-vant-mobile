@@ -31,6 +31,8 @@ const include = [
 
 const exclude = [
   '@iconify-json/carbon',
+  '@iconify-json/mdi',
+  '@iconify-json/tabler',
 ]
 
 export { include, exclude }
