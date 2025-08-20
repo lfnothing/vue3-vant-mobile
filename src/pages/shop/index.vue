@@ -24,6 +24,8 @@ interface StateItem {
   typingIndex: number // 当前打字位置
   typingDelta: number // 打字时间间隔，单位（毫秒)
   typingInterval: any // 打字周期性执行器
+
+  autoScroll: boolean // 是否自动滚到底
 }
 
 const baseState = ref<StateItem>({
@@ -41,6 +43,7 @@ const baseState = ref<StateItem>({
   typingIndex: 0,
   typingDelta: 60,
   typingInterval: null,
+  autoScroll: true, // 用户手动往上滑了为false停止自动滚
 })
 
 // 这样就可以获取到ElAmap的组件实例类型
@@ -65,7 +68,7 @@ function handleMapClick() {
   // 2. 显示信息也清空
   hasReportGenerated.value = false
   showReportPopup.value = false
-  // 清空ai 清空显示德内容 打字位置归0 清理定时器
+  // 清空ai 清空显示的内容 打字位置归0 清理定时器
   baseState.value.retAI = ''
   baseState.value.displayText = ''
   baseState.value.typingIndex = 0
@@ -106,6 +109,18 @@ function handleReportClick() {
   startTypingText()
   showReportPopup.value = true
   hasReportGenerated.value = true
+
+  nextTick(() => {
+    // if (!reportScroll.value) return
+    // baseState.value.autoScroll = true
+    reportScroll.value.scrollTop = reportScroll.value.scrollHeight // 先滚到底
+    // 手动上滑的开关 onscroll回调 位置实时决定 autoScroll 是 true 还是 false
+    reportScroll.value.onscroll = () => {
+      // 距离底部 ≤20px 视为到底部又开始自动滚动
+      baseState.value.autoScroll = reportScroll.value.scrollHeight - reportScroll.value.scrollTop - reportScroll.value.clientHeight <= 20
+      //  scrollHeight 总高度  scrollTop 滚动条当前距离顶部的高度  clientHeight 可视区域高度
+    }
+  })
 }
 
 // 开始打字
@@ -122,18 +137,22 @@ function typingText() {
   if (baseState.value.typingIndex < baseState.value.retAI.length) {
     baseState.value.displayText = md.render(baseState.value.retAI.substring(0, baseState.value.typingIndex + 1))
     baseState.value.typingIndex++
-    // 2. DOM 更新完立即滚动
+    // 打字过程滚动同步
     nextTick(() => {
-      // 检查是否存在滚动容器
-      if (reportScroll.value) {
-        // 存在就调用scrollTo方法
-        reportScroll.value.scrollTo({
-          // 表示将滚动条定位到该元素的‌内容总高度‌处(内容最底部)
-          top: reportScroll.value.scrollHeight,
-          behavior: 'smooth',
-        })
+      if (reportScroll.value && baseState.value.autoScroll) {
+        reportScroll.value.scrollTop = reportScroll.value.scrollHeight // 滚动到最新内容
       }
     })
+
+    // 检查是否存在滚动容器
+    //   if (reportScroll.value) {
+    //     // 存在就调用scrollTo方法
+    //     reportScroll.value.scrollTo({
+    //       // 表示将滚动条定位到该元素的‌内容总高度‌处(内容最底部)
+    //       top: reportScroll.value.scrollHeight,
+    //       behavior: 'smooth',
+    //     })
+    //   }
   }
 }
 
@@ -416,3 +435,4 @@ onBeforeMount(() => {
   }
 }
 </route>
+<!-- 修改这个弹出页面自动下滑部分现在随着数据的更新跳到最新出现的一行是需要实现的但是应该再修改满足数据生成下滑到底部的同时我也可以自己进行上滑操作看之前的数据这个时候底部的数据仍然保持更新 用最简单的方式实现可以修改方法 -->
