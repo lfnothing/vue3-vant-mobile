@@ -24,7 +24,6 @@ interface StateItem {
   typingIndex: number // 当前打字位置
   typingDelta: number // 打字时间间隔，单位（毫秒)
   typingInterval: any // 打字周期性执行器
-
   autoScroll: boolean // 是否自动滚到底
 }
 
@@ -95,7 +94,7 @@ function handleReportClick() {
     showReportPopup.value = true
     return
   }
-  const source = new EventSource(`http://raspberrypi.local:3001/api/v1/shop/valuationByAI/stream?location=${baseState.value.position.join(',')}`)
+  const source = new EventSource(`${import.meta.env.VITE_APP_MESSAGE_HTTP_KEY}/api/v1/shop/valuationByAI/stream?location=${baseState.value.position.join(',')}`)
   source.onmessage = (e) => {
     if (e.data === '[DONE]') {
       stopTypingText()
@@ -143,16 +142,6 @@ function typingText() {
         reportScroll.value.scrollTop = reportScroll.value.scrollHeight // 滚动到最新内容
       }
     })
-
-    // 检查是否存在滚动容器
-    //   if (reportScroll.value) {
-    //     // 存在就调用scrollTo方法
-    //     reportScroll.value.scrollTo({
-    //       // 表示将滚动条定位到该元素的‌内容总高度‌处(内容最底部)
-    //       top: reportScroll.value.scrollHeight,
-    //       behavior: 'smooth',
-    //     })
-    //   }
   }
 }
 
@@ -341,6 +330,8 @@ onBeforeMount(() => {
         <van-nav-bar
           title="AI选址分析报告"
         >
+          <!-- left-arrow
+        @click-left="showReportPopup = false" -->
           <template #right>
             <van-icon name="cross" style="color:darkgray;font-size:28px" @click="showReportPopup = false" />
           </template>
@@ -435,4 +426,3 @@ onBeforeMount(() => {
   }
 }
 </route>
-<!-- 修改这个弹出页面自动下滑部分现在随着数据的更新跳到最新出现的一行是需要实现的但是应该再修改满足数据生成下滑到底部的同时我也可以自己进行上滑操作看之前的数据这个时候底部的数据仍然保持更新 用最简单的方式实现可以修改方法 -->
